@@ -1,0 +1,63 @@
+{
+    "$schema": "https://json.schemastore.org/block.json",
+    "apiVersion": 2,
+    "title": "YTBlock",
+    "name": "atareao/ytblock",
+    "category": "embed",
+    "icon": "universal-access-alt",
+    "keywords": ["atareao", "youtube"],
+    "version": "1.0.0",
+    "textdomain": "atareao-ytblock",
+    "example": {},
+    "attributes": {
+        "ytId": {
+            "type": "string",
+            "default": "ytid"
+        },
+        "src": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "iframe",
+            "attribute": "src",
+            "default": "https://www.youtube.com/embed/qn-6yLJaq8o"
+        },
+        "width": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "iframe",
+            "attribute": "width",
+            "default": "800"
+        },
+        "height": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "iframe",
+            "attribute": "height",
+            "default": "450"
+        },
+        "title": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "iframe",
+            "attribute": "title",
+            "default": "YouTube video player"
+        },
+        "allow": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "iframe",
+            "attribute": "allow",
+            "default": "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        },
+        "frameborder": {
+            "type": "string",
+            "source": "attribute",
+            "selector": "iframe",
+            "attribute": "frameborder",
+            "default": "0"
+        }
+    },
+    "editorScript": "file:./block.js",
+    "style": "file:./style.css"
+}
+
