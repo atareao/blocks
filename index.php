@@ -3,7 +3,7 @@
  * Plugin Name: Atareao Blocks
  * Plugin URI: https://github.com/WordPress/atareao-ytblock
  * Description: Blocks for atareao.es and others
- * Version: 1.0.0
+ * Version: 2.0.0
  * Author: Lorenzo Carbonell <a.k.a. atareao>
  *
  * @package atareao-blocks

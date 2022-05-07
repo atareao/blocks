@@ -52,7 +52,7 @@
                 source: "attribute",
                 selector: "iframe",
                 attribute: "width",
-                default: "800"
+                default: "100%"
             },
             height: {
                 type: "string",
