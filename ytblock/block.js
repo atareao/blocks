@@ -47,20 +47,6 @@
                 attribute: 'src',
                 default: 'https://www.youtube.com/embed/'
             },
-            width: {
-                type: "string",
-                source: "attribute",
-                selector: "iframe",
-                attribute: "width",
-                default: "100%"
-            },
-            height: {
-                type: "string",
-                source: "attribute",
-                selector: "iframe",
-                attribute: "height",
-                default: "450"
-            },
             title: {
                 type: "string",
                 source: "attribute",
@@ -82,11 +68,11 @@
                 attribute: "frameborder",
                 default: "0"
             },
-            className: {
+            class: {
                 type: "string",
                 source: "attribute",
                 selector: "iframe",
-                attribute: "class",
+                class: "frameborder",
                 default: "video"
             }
         },
@@ -129,7 +115,6 @@
                 ),
             );
         },
-        // <iframe width="560" height="315" src="https://www.youtube.com/embed/qn-6yLJaq8o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         save: function(props) {
             //let blockProps = wp.blockEditor.useBlockProps.save();
             let url = `https://www.youtube.com/embed/${props.attributes.ytId}?rel=0`;
