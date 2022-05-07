@@ -81,6 +81,13 @@
                 selector: "iframe",
                 attribute: "frameborder",
                 default: "0"
+            },
+            className: {
+                type: "string",
+                source: "attribute",
+                selector: "iframe",
+                attribute: "class",
+                default: "video"
             }
         },
         edit: function(props) {
@@ -130,7 +137,7 @@
             let blockProps = wp.blockEditor.useBlockProps.save();
             return wp.element.createElement(
                 "div",
-                {class: "containter"},
+                {class: "container"},
                 wp.element.createElement(
                     "iframe",
                     props.attributes
