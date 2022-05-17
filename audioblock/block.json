@@ -51,6 +51,7 @@
         }
     },
     "editorScript": "file:./block.js",
-    "style": "file:./style.css"
+    "style": "file:./style.css",
+    "script": "file:./wavesurfer.js"
 }
 
