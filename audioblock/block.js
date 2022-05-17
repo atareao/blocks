@@ -118,7 +118,48 @@
                     {className: "controls"},
                     wp.element.createElement(
                         "button",
-                        {className: "btn btn-primary", "data-action": "play"}
+                        {className: "btn btn-primary",
+                         onclick: "wavesurfer.skipBackward()"}
+                        wp.element.createElement(
+                            "i"
+                            {className: "fa fa-step-backward"}
+                        ),
+                        "Backward"
+                    ),
+                    wp.element.createElement(
+                        "button",
+                        {className: "btn btn-primary",
+                         onclick: "wavesurfer.playPause()"}
+                        wp.element.createElement(
+                            "i"
+                            {className: "fa fa-play"}
+                        ),
+                        "Play / ",
+                        wp.element.createElement(
+                            "i"
+                            {className: "fa fa-pause"}
+                        ),
+                        "Pause",
+                    ),
+                    wp.element.createElement(
+                        "button",
+                        {className: "btn btn-primary",
+                         onclick: "wavesurfer.skipForward()"}
+                        wp.element.createElement(
+                            "i"
+                            {className: "fa fa-step-forward"}
+                        ),
+                        "Forward"
+                    ),
+                    wp.element.createElement(
+                        "button",
+                        {className: "btn btn-primary",
+                         onclick: "wavesurfer.toggleMute()"}
+                        wp.element.createElement(
+                            "i"
+                            {className: "fa fa-volume-off"}
+                        ),
+                        "Toggle Mute"
                     ),
                 ),
             );
