@@ -19,20 +19,20 @@
             },
             el("path",
                 {
-                    d: "M21.8 8s-.195-1.377-.795-1.984c-.76-.797-1.613-.8-2.004-.847-2.798-.203-6.996-.203-6.996-.203h-.01s-4.197 0-6.996.202c-.39.046-1.242.05-2.003.846C2.395 6.623 2.2 8 2.2 8S2 9.62 2 11.24v1.517c0 1.618.2 3.237.2 3.237s.195 1.378.795 1.985c.76.797 1.76.77 2.205.855 1.6.153 6.8.2 6.8.2s4.203-.005 7-.208c.392-.047 1.244-.05 2.005-.847.6-.607.795-1.985.795-1.985s.2-1.618.2-3.237v-1.517C22 9.62 21.8 8 21.8 8zM9.935 14.595v-5.62l5.403 2.82-5.403 2.8z"
+                    d: "M336 192h-16c-8.84 0-16 7.16-16 16v48c0 74.8-64.49 134.82-140.79 127.38C96.71 376.89 48 317.11 48 250.3V208c0-8.84-7.16-16-16-16H16c-8.84 0-16 7.16-16 16v40.16c0 89.64 63.97 169.55 152 181.69V464H96c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16h-56v-33.77C285.71 418.47 352 344.9 352 256v-48c0-8.84-7.16-16-16-16zM176 352c53.02 0 96-42.98 96-96h-85.33c-5.89 0-10.67-3.58-10.67-8v-16c0-4.42 4.78-8 10.67-8H272v-32h-85.33c-5.89 0-10.67-3.58-10.67-8v-16c0-4.42 4.78-8 10.67-8H272v-32h-85.33c-5.89 0-10.67-3.58-10.67-8v-16c0-4.42 4.78-8 10.67-8H272c0-53.02-42.98-96-96-96S80 42.98 80 96v160c0 53.02 42.98 96 96 96z"
                 }
             ),
         ),
     );
 
     var blockStyle = {
-        backgroundColor: '#900',
-        color: '#fff',
+        backgroundColor: '#fff',
+        color: '#900',
         padding: '20px',
     };
 
     blocks.registerBlockType( 'atareao/audioblock', {
-        title: __("Audio Atareao Block"),
+        title: __("AudioBlock"),
         icon: blockIcon,
         category: "embed",
         attributes: {
@@ -98,8 +98,6 @@
             );
         },
         save: function(props) {
-            //let blockProps = wp.blockEditor.useBlockProps.save();
-            let url = `https://www.youtube.com/embed/${props.attributes.ytId}?rel=0`;
             props.attributes.src = url;
             let blockProps = wp.blockEditor.useBlockProps.save();
             return wp.element.createElement(
@@ -111,7 +109,7 @@
                 ),
                 wp.element.createElement(
                     "audio",
-                    {},
+                    props.attributes,
                 ),
                 wp.element.createElement(
                     "div",

@@ -1,53 +1,35 @@
 {
     "$schema": "https://json.schemastore.org/block.json",
     "apiVersion": 2,
-    "title": "YTBlock",
-    "name": "atareao/ytblock",
+    "title": "AudioBlock",
+    "name": "atareao/audioblock",
     "category": "embed",
     "icon": "universal-access-alt",
-    "keywords": ["atareao", "youtube"],
+    "keywords": ["atareao", "audio"],
     "version": "1.0.0",
-    "textdomain": "atareao-ytblock",
+    "textdomain": "atareao-audioblock",
     "example": {},
     "attributes": {
-        "ytId": {
-            "type": "string",
-            "default": "ytid"
-        },
         "src": {
             "type": "string",
             "source": "attribute",
-            "selector": "iframe",
+            "selector": "audio",
             "attribute": "src",
-            "default": "https://www.youtube.com/embed/qn-6yLJaq8o"
+            "default": ""
         },
-        "title": {
+        "preload": {
             "type": "string",
             "source": "attribute",
-            "selector": "iframe",
-            "attribute": "title",
-            "default": "YouTube video player"
+            "selector": "audio",
+            "attribute": "preload",
+            "default": "auto"
         },
-        "allow": {
+        "style": {
             "type": "string",
             "source": "attribute",
-            "selector": "iframe",
-            "attribute": "allow",
-            "default": "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        },
-        "frameborder": {
-            "type": "string",
-            "source": "attribute",
-            "selector": "iframe",
-            "attribute": "frameborder",
-            "default": "0"
-        },
-        "class": {
-            "type": "string",
-            "source": "attribute",
-            "selector": "iframe",
-            "attribute": "class",
-            "default": "video"
+            "selector": "audio",
+            "attribute": "style",
+            "default": "width: 100%"
         }
     },
     "editorScript": "file:./block.js",
