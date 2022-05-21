@@ -33,7 +33,7 @@
         }
     },
     "editorScript": "file:./block.js",
-    "style": "file:./style.css",
-    "script": "file:./wavesurfer.js"
+    "viewScript": "file:./simple.js",
+    "style": "file:./style.css"
 }
 
