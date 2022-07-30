@@ -21,5 +21,6 @@ function atareao_blocks_register_blocks() {
         return;
     }
     register_block_type( plugin_dir_path( __FILE__ ) . 'ytblock/' );
+    register_block_type( plugin_dir_path( __FILE__ ) . 'audioblock/' );
 }
 add_action( 'init', 'atareao_blocks_register_blocks' );
