@@ -9,6 +9,7 @@ const ready = (callaback) => {
 }
 ready(()=>{
     console.log("Cargado");
+    randomize_animal();
     document.getElementById("atareao-formblock-button-enviar").addEventListener('click', function (event) {
         // Log the clicked element in the console
         const data = get_data();
@@ -38,7 +39,7 @@ ready(()=>{
         console.log("Enviar");
         const headers = new Headers({
             "Content-Type": "application/json"
-        })
+        });
         fetch(php_vars.url,{
             method: "post",
             headers: headers,
@@ -46,15 +47,49 @@ ready(()=>{
             body: JSON.stringify(data)
         })
             .then(response => {
-                console.log("response.ok");
-                console.log(get_email());
-                return response.ok ? response.json(): "Not found...";
+                console.log(response.ok);
+                if(response.ok){
+                    resultado.textContent = "Enviado con éxito";
+                    resultado.style.visibility = "visible";
+                    resultado.style.color = "green";
+                }else{
+                    resultado.textContent = "No he podido enviar el mensaje";
+                    resultado.style.visibility = "visible";
+                    resultado.style.color = "red";
+                }
+                randomize_animal();
             })
-            .then(json_response => {
-                console.log("response.ko");
-            });
     });
 });
+
+function send_message(bot_token, chat_id, message){
+    const url = `https://api.telegram.org/bot${bot_token}/sendMessage`;
+    const data = {
+        "chat_id": chat_id,
+        "text": message,
+        "parse_mode": "HTML"
+    }
+    const headers = new Headers({
+        "Content-Type": "application/json"
+    });
+    fetch(url,{
+        method: "post",
+        headers: headers,
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        console.log(response.ok);
+        return response.ok;
+    });
+}
+
+function randomize_animal(){
+    const animals = ["\u{1F980}", "\u{1F40D}", "\u{1F427}", "\u{1F404}", "\u{1F416}", "\u{1F40E}"];
+    const i = Math.floor(Math.random() * animals.length);
+    const random_animal = document.getElementById("random-animal");
+    random_animal.textContent = animals[i];
+}
+
 function validate_email(email){
   return String(email)
     .toLowerCase()
@@ -68,11 +103,6 @@ function get_data(){
         email: DOMPurify.sanitize(document.getElementById("atareao-formblock-input-email").value),
         message: DOMPurify.sanitize(document.getElementById("atareao-formblock-textarea-answer").value)
     };
-}
-
-function get_email(){
-    const email_input = document.getElementById("atareao-formblock-input-email");
-    return email_input.value;
 }
 
 function validate_human(){

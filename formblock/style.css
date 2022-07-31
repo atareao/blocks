@@ -62,6 +62,9 @@ input, textarea{
     font-size: 16px;
     border-radius: 10px;
     border-width: 1px;
+    border-sytle: solid;
+    padding: 5px;
+    line-height: 30px!important;
 }
 #atareao-formblock-button-enviar{
     flex: 1;
