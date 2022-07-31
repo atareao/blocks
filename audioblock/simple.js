@@ -1,3 +1,3 @@
-(funcion(){
+(function(){
     console.log("aquin");
 }());

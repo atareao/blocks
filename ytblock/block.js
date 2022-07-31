@@ -81,13 +81,13 @@
             function updateYTId(event) {
                 props.setAttributes({ytId: event.target.value});
             }
-            return element.createElement(
+            return el(
                 "div",
                 {className: "block-editor-block-list__block wp-block wp-block-embed"},
-                element.createElement(
+                el(
                     "div",
                     {className: "components-placeholder wp-block-embed is-large"},
-                    element.createElement(
+                    el(
                         "div",
                         {
                             className: "components-placeholder__label"
@@ -95,7 +95,7 @@
                         blockIcon,
                         "Custom URL de YouTube"
                     ),
-                    element.createElement(
+                    el(
                         "div",
                         {
                             for: "ytId",
@@ -103,7 +103,7 @@
                         },
                         "Introduce el código: "
                     ),
-                    element.createElement(
+                    el(
                         "input",
                         {
                             id: "ytId",
@@ -120,10 +120,10 @@
             let url = `https://www.youtube.com/embed/${props.attributes.ytId}?rel=0`;
             props.attributes.src = url;
             let blockProps = wp.blockEditor.useBlockProps.save();
-            return wp.element.createElement(
+            return el(
                 "div",
                 {class: "container"},
-                wp.element.createElement(
+                el(
                     "iframe",
                     props.attributes
                 ),
