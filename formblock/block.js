@@ -116,7 +116,7 @@
                     {class: "miform"},
                     el(
                         "label",
-                        {class: "question row"},
+                        {class: "atareao-formblock-label row"},
                         el(
                             "span",
                             {class: "question"},
@@ -125,7 +125,7 @@
                     ),
                     el(
                         "label",
-                        {class: "help row"},
+                        {class: "atareao-formblock-label row"},
                         el(
                             "span",
                             {class: "help"},
@@ -137,7 +137,10 @@
                         {class: "row"},
                         el(
                             "label",
-                            {class: "label"},
+                            {
+                                class: "atareao-formblock-label",
+                                id: "atareao-formblock-label-correo"
+                            },
                             "Correo: "
                         ),
                         el(
