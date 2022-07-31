@@ -108,5 +108,5 @@ function get_data(){
 function validate_human(){
     const random_animal = document.getElementById("random-animal");
     const options = document.getElementById("atareao-formblock-select-animal");
-    return random_animal.firstChild.alt == options.value;
+    return random_animal.textContent == options.value;
 }

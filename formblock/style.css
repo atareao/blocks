@@ -23,7 +23,7 @@
     width: 100%
 }
 #atareao-formblock-select-animal{
-    height: 90px;
+    height: 100px;
     border: none;
     overflow: hidden;
 }
@@ -37,9 +37,12 @@
 #random-animal{
     font-size: 50px;
 }
+.atareao-formblock-label{
+    font-weight: 300;
+}
 #atareao-formblock-select-animal option{
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     font-size: 50px;
     padding: 10px;
     text-align: center;

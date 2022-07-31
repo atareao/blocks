@@ -42,8 +42,8 @@ function send_message(WP_REST_Request $request){
         $data = json_decode($body);
         $options = get_option('admin_settings_options');
         if(isset($options)){
-            $bot_token = $options['admin_settings_telegram_bot_token'];
-            $chat_id  = $options['admin_settings_telegram_channel'];
+            $bot_token = $options['admin_settings_telegram_bot_token_vida_digital'];
+            $chat_id  = $options['admin_settings_telegram_channel_vida_digital'];
             $text = "form: que\nfrom: $data->email\nmessage: $data->message";
             $data =[
                 "chat_id" => $chat_id,
