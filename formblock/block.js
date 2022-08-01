@@ -182,16 +182,7 @@
                         {
                             class: "atareao-formblock-div row",
                         },
-                        el(
-                            "select",
-                            {
-                                class: "atareao-formblock-select",
-                                name: "select-animal",
-                                id: "atareao-formblock-select-animal",
-                                multiple: "multiple"
-                            },
-                            human()
-                        ),
+                        human()
                     ),
                     el(
                         "div",
@@ -233,25 +224,40 @@ function human_q(){
             wp.element.createElement(
                 "span",
                 {
-                    id: "random-animal"
+                    id: "random-animal",
+                    value: "option1"
                 },
                 "")];
 }
 
 function human(){
     let q = [];
-    let animals = ["\u{1F980}", "\u{1F40D}", "\u{1F427}", "\u{1F404}", "\u{1F416}", "\u{1F40E}"];
-    let total = animals.length;
-    for(let i=0; i < total; i++){
-        const is = Math.floor(Math.random() * animals.length)
-        const selected = animals.splice(is, 1);
+    let animals = {option1: "\u{1F980}",
+                   option2: "\u{1F40D}",
+                   option3: "\u{1F427}",
+                   option4: "\u{1F404}",
+                   option5: "\u{1F416}",
+                   option6: "\u{1F40E}"
+    };
+    for(const [key, value] of Object.entries(animals)){
         q.push(wp.element.createElement(
-            "option",
+            "input",
             {
-                class: "cell",
-                value: `${selected}`
+                class: "atareao-formblock-input-for-selection",
+                type: "radio",
+                name: "animal",
+                value: key,
+                id: key
+            }
+        ));
+        q.push(wp.element.createElement(
+            "label",
+            {
+                class: "atareao-formblock-label-for-selection",
+                for: key
             },
-            selected))
+            value
+        ));
     }
     return q;
 }

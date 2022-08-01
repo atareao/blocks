@@ -85,10 +85,20 @@ function send_message(bot_token, chat_id, message){
 }
 
 function randomize_animal(){
-    const animals = ["\u{1F980}", "\u{1F40D}", "\u{1F427}", "\u{1F404}", "\u{1F416}", "\u{1F40E}"];
-    const i = Math.floor(Math.random() * animals.length);
+    const animals = {option1: "\u{1F980}",
+                     option2: "\u{1F40D}",
+                     option3: "\u{1F427}",
+                     option4: "\u{1F404}",
+                     option5: "\u{1F416}",
+                     option6: "\u{1F40E}"
+    };
+    var keys = Object.keys(animals);
+    const i = Math.floor(Math.random() * keys.length);
+    const key = keys[i];
+    const value = animals[key];
     const random_animal = document.getElementById("random-animal");
-    random_animal.textContent = animals[i];
+    random_animal.textContent = value;
+    random_animal.value = key;
 }
 
 function validate_email(email){
@@ -106,8 +116,18 @@ function get_data(){
     };
 }
 
+function get_selected_option(){
+    const options = document.getElementsByName("animal");
+    for(let i=0;i < options.length; i++){
+        if(options[i].checked){
+            return options[i].value
+        }
+    }
+    return null;
+}
+
 function validate_human(){
     const random_animal = document.getElementById("random-animal");
-    const options = document.getElementById("atareao-formblock-select-animal");
-    return random_animal.textContent == options.value;
+    const selected_animal = get_selected_option();
+    return random_animal.value == selected_animal;
 }
