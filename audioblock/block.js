@@ -32,7 +32,7 @@
     };
 
     blocks.registerBlockType( 'atareao/audioblock', {
-        title: __("AudioBlock"),
+        title: __("Atareao Audio Block"),
         icon: blockIcon,
         category: "embed",
         attributes: {
@@ -98,7 +98,6 @@
             );
         },
         save: function(props) {
-            props.attributes.src = url;
             let blockProps = wp.blockEditor.useBlockProps.save();
             return wp.element.createElement(
                 "div",
@@ -117,24 +116,28 @@
                     wp.element.createElement(
                         "button",
                         {className: "btn btn-primary",
-                         onclick: "wavesurfer.skipBackward()"}
+                         onclick: "wavesurfer.skipBackward()"},
                         wp.element.createElement(
-                            "i"
+                            "i",
                             {className: "fa fa-step-backward"}
                         ),
                         "Backward"
                     ),
                     wp.element.createElement(
                         "button",
-                        {className: "btn btn-primary",
-                         onclick: "wavesurfer.playPause()"}
+                        {
+                            id: "play",
+                            className: "btn btn-primary",
+                            dataAction: "play",
+                            onclick: "wavesurfer.playPause()"
+                        },
                         wp.element.createElement(
-                            "i"
+                            "i",
                             {className: "fa fa-play"}
                         ),
                         "Play / ",
                         wp.element.createElement(
-                            "i"
+                            "i",
                             {className: "fa fa-pause"}
                         ),
                         "Pause",
@@ -142,9 +145,9 @@
                     wp.element.createElement(
                         "button",
                         {className: "btn btn-primary",
-                         onclick: "wavesurfer.skipForward()"}
+                         onclick: "wavesurfer.skipForward()"},
                         wp.element.createElement(
-                            "i"
+                            "i",
                             {className: "fa fa-step-forward"}
                         ),
                         "Forward"
@@ -152,9 +155,9 @@
                     wp.element.createElement(
                         "button",
                         {className: "btn btn-primary",
-                         onclick: "wavesurfer.toggleMute()"}
+                         onclick: "wavesurfer.toggleMute()"},
                         wp.element.createElement(
-                            "i"
+                            "i",
                             {className: "fa fa-volume-off"}
                         ),
                         "Toggle Mute"

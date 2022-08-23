@@ -23,8 +23,36 @@ function atareao_blocks_register_blocks() {
     register_block_type(plugin_dir_path( __FILE__ ).'ytblock/' );
     register_block_type(plugin_dir_path( __FILE__ ).'audioblock/');
     register_block_type(plugin_dir_path( __FILE__ ).'formblock/');
+    register_block_type(plugin_dir_path( __FILE__ ).'metablock/');
 }
 add_action( 'init', 'atareao_blocks_register_blocks' );
+
+/**/
+// register custom meta tag field
+function atareao_blocks_register_post_meta() {
+    register_post_meta( 'post', 'nombre', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+    ));
+    register_post_meta( 'post', 'apellido', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+    ));
+    register_post_meta( 'post', 'alias', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+    ));
+    register_post_meta( 'post', 'mp3_url', array(
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
+    ));
+}
+add_action( 'init', 'atareao_blocks_register_post_meta' );
+/**/
 
 function formblock_endpoint(){
     register_rest_route("atareao-formblock/v1", "enviar", array(
@@ -70,9 +98,26 @@ function atareao_formblock_enqueue_scripts(){
         "url"       => "/wp-json/atareao-formblock/v1/enviar",
     );
     wp_localize_script("atareao-formblock", "php_vars", $formblock_params);
-
 }
 add_action("enqueue_block_assets", "atareao_formblock_enqueue_scripts");
+
+function atareao_audioblock_enqueue_scripts(){
+    $block_path = "blocks/audioblock/wavesurfer.js";
+    $main_path = "blocks/audioblock/simple.js";
+    wp_enqueue_script(
+        "atareao-audioblock",
+        plugin_dir_url(__DIR__).$block_path,
+        ["wp-blocks"],
+        filemtime(plugin_dir_path(__DIR__).$block_path)
+    );
+    wp_enqueue_script(
+        "atareao-audioblock-main",
+        plugin_dir_url(__DIR__).$main_path,
+        ["wp-blocks", "atareao-audioblock"],
+        filemtime(plugin_dir_path(__DIR__).$main_path)
+    );
+}
+add_action("enqueue_block_assets", "atareao_audioblock_enqueue_scripts");
 
 function custom_http_post($url, $json)
 {
