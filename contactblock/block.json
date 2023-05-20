@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json.schemastore.org/block.json",
+    "apiVersion": 2,
+    "title": "ContactBlock",
+    "name": "atareao/conctactblock",
+    "category": "embed",
+    "icon": "universal-access-alt",
+    "keywords": ["atareao", "youtube"],
+    "version": "1.0.0",
+    "textdomain": "atareao-contactblock",
+    "example": {},
+    "attributes": {
+        "question": {
+            "type": "string"
+        },
+        "help": {
+            "type": "string"
+        }
+    },
+    "editorScript": "file:./block.js",
+    "style": "file:./style.css"
+}
+
+

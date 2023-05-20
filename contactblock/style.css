@@ -1,0 +1,72 @@
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    flex-direction: row;
+    max-height: 100vh;
+}
+
+#atareao-contactblock-label-correo{
+    line-height: 80px!important;
+}
+#atareao-contactblock-input-contact{
+    flex: 1;
+}
+#atareao-contactblock-textarea-content{
+    flex: 1;
+}
+#atareao-contactblock-select-animal{
+    height: 100px;
+    border: none;
+    overflow: hidden;
+}
+#atareao-contactblock-label-for-select-animal{
+    line-height: 100px;
+}
+
+#atareao-contactblock-select-animal:focus {
+  outline: none;
+}
+#random-animal{
+    font-size: 50px;
+}
+.atareao-contactblock-label{
+    font-weight: 300;
+}
+input, textarea{
+    font-family: sans-serif;
+    font-size: 16px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-sytle: solid;
+    padding: 5px;
+    line-height: 30px!important;
+}
+#atareao-contactblock-button-enviar{
+    flex: 1;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+.invisible{
+    visibility: hidden;
+}
+.atareao-contactblock-label-for-selection{
+    font-size: 50px;
+    cursor: pointer;
+    background-color: #7ddbd3;
+    padding: 25px;
+    border-radius: 10px;
+}
+input[type="radio"].atareao-contactblock-input-for-selection{
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+input[type="radio"].atareao-contactblock-input-for-selection:checked + label{
+  background-color: #cf92e1;
+}
+.atareao-contactblock-div{
+    margin-top: 20px;
+}
