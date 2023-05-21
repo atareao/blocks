@@ -4,7 +4,7 @@
     var __ = i18n.__;
     var useBlockProps = blockEditor.useBlockProps;
     var handleClick = function handleClick(event) {
-         console.log(event);
+         //console.log(event);
     };
     const el = wp.element.createElement;
     const blockIcon = el("span",
