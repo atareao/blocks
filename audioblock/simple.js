@@ -5,8 +5,12 @@ let wavesurfer = {};
 
 // Init & load audio file
 document.addEventListener('DOMContentLoaded', function() {
+    const waveform = document.getElementById("waveform");
+    if(waveform == null){
+        return;
+    }
     wavesurfer = WaveSurfer.create({
-        container: document.getElementById('waveform'),
+        container: waveform,
         waveColor: '#D9DCFF',
         progressColor: '#4353FF',
         cursorColor: '#4353FF',
