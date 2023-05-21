@@ -9,26 +9,33 @@ const contactblock_ready = (callaback) => {
 
 contactblock_ready(()=>{
     console.log("Cargado");
-    randomize_animal();
-    document.getElementById("atareao-contactblock-button-enviar").addEventListener('click', function (event) {
+    const button = document.getElementById("atareao-contactblock-button-enviar");
+    if (button == null){
+        return;
+    }
+    atareao_contactblock_randomize_animal();
+    button.addEventListener('click', function (event) {
         // Log the clicked element in the console
-        const data = get_data();
+        const message = get_content();
+        const message_box = document.getElementsById("atareao-contactblock-div-resultado");
+        const message_box_content = document.getElementById("atareao-contactblock-content-resultado")
         const resultado = document.getElementById("atareao-contactblock-span-resultado");
-        if(!validate_text(data.message)){
-            resultado.textContent = "El mensaje no es válido";
-            resultado.style.visibility = "visible";
-            resultado.style.color = "red";
+        if(!validate_text(message)){
+            message_box_content.textContent = "El mensaje no es válido";
+            message_box.style.visibility = "visible";
+            message_box.style.backgroundColor = "red";
             return;
         }
         if(!validate_human()){
-            resultado.textContent = "No pareces ser humano. Selecciona el animal correcto";
-            resultado.style.visibility = "visible";
-            resultado.style.color = "red";
+            message_box_content.textContent = "No pareces ser humano. Selecciona el animal correcto";
+            message_box.style.visibility = "visible";
+            message_box.style.color = "red";
+            clear_content();
             return;
         }
-        resultado.textContent = "";
-        resultado.style.visibility = "hidden";
-        resultado.style.color = "black";
+        message_box_content.textContent = "";
+        message_box.style.visibility = "hidden";
+        message_box.style.color = "black";
         console.log(event.target);
         console.log("Enviar");
         const headers = new Headers({
@@ -38,32 +45,32 @@ contactblock_ready(()=>{
             method: "post",
             headers: headers,
             credentials: "same-origin",
-            body: JSON.stringify(data)
+            body: JSON.stringify({message: message})
         })
             .then(response => {
                 console.log(response.ok);
                 const result = response.json();
                 if(response.ok){
-                    resultado.textContent = "Enviado con éxito";
-                    resultado.style.visibility = "visible";
-                    resultado.style.color = "green";
+                    message_box_content.textContent = "Tu mensaje ha sido enviado!";
+                    message_box.style.visibility = "visible";
+                    message_box.style.color = "green";
                 }else{
-                    resultado.textContent = "No he podido enviar el mensaje";
-                    resultado.style.visibility = "visible";
-                    resultado.style.color = "red";
+                    message_box_content.textContent = "No he podido enviar el mensaje";
+                    message_box.style.visibility = "visible";
+                    message_box.style.color = "red";
                 }
-                randomize_animal();
+                atareao_contactblock_randomize_animal();
             })
     });
 });
 
-function randomize_animal(){
+function atareao_contactblock_randomize_animal(){
     const animals = {option1: "\u{1F980}",
                      option2: "\u{1F40D}",
                      option3: "\u{1F427}",
-                     option4: "\u{1F404}",
-                     option5: "\u{1F416}",
-                     option6: "\u{1F40E}"
+                     option4: "\u{1F40B}",
+                     option5: "\u{1F9AD}",
+                     option6: "\u{1F98A}"
     };
     var keys = Object.keys(animals);
     const i = Math.floor(Math.random() * keys.length);
@@ -75,20 +82,15 @@ function randomize_animal(){
 }
 
 function validate_text(text){
-    const reg = /^[a-zA-Z0-9\@\.\-\_\s]+$/
-    return !text && reg.test(text);
+    return text && text !== "";
 }
 
-function clear_data(){
-    document.getElementById("atareao-contactblock-input-contact").value = "";
+function clear_content(){
     document.getElementById("atareao-contactblock-textarea-content").value = "";
 }
 
-function get_data(){
-    return {
-        contact: DOMPurify.sanitize(document.getElementById("atareao-contactblock-input-contact").value),
-        content: DOMPurify.sanitize(document.getElementById("atareao-contactblock-textarea-content").value)
-    };
+function get_content(){
+    return DOMPurify.sanitize(document.getElementById("atareao-contactblock-textarea-content").value);
 }
 
 function get_selected_option(){

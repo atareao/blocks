@@ -10,10 +10,7 @@
     "textdomain": "atareao-contactblock",
     "example": {},
     "attributes": {
-        "question": {
-            "type": "string"
-        },
-        "help": {
+        "message": {
             "type": "string"
         }
     },

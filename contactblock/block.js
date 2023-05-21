@@ -39,22 +39,70 @@
         icon: blockIcon,
         category: "embed",
         attributes: {
-            question: {
+            message: {
                 type: "string",
-            },
-            help: {
-                type: "string"
             }
         },
+        edit: function(props) {
+            let blockProps = wp.blockEditor.useBlockProps();
+            function update_message(event) {
+                props.setAttributes({message: event.target.value});
+            }
+            return el(
+                "div",
+                {className: "block-editor-block-list__block wp-block wp-block-embed"},
+                el(
+                    "div",
+                    {className: "components-placeholder wp-block-embed is-large"},
+                    el(
+                        "div",
+                        {
+                            className: "components-placeholder__label"
+                        },
+                        blockIcon,
+                        "Contact form"
+                    ),
+                    el(
+                        "div",
+                        {
+                            for: "message",
+                            className: "components-placeholder__instructions"
+                        },
+                        "Escribe el mensaje:"
+                    ),
+                    el(
+                        "textarea",
+                        {
+                            id: "message",
+                            type: "text",
+                            value: props.attributes.message,
+                            onChange: update_message
+                        }
+                    ),
+                ),
+            );
+        },
         save: function(props) {
-            //let blockProps = wp.blockEditor.useBlockProps.save();
-            let blockProps = wp.blockEditor.useBlockProps.save();
+            let blockProps = wp.blockEditor.useBlockProps;
             return el(
                 "div",
                 {className: "block-editor-block-list__block wp-block wp-block-embed"},
                 el(
                     "div",
                     {class: "miform"},
+                    el(
+                        "div",
+                        {class: "row"},
+                        el(
+                            "label",
+                            {class: "atareao-contactblock-label row"},
+                            el(
+                                "p",
+                                {class: "message"},
+                                props.attributes.message
+                            )
+                        ),
+                    ),
                     el(
                         "textarea",
                         {
@@ -63,6 +111,28 @@
                             name: "message",
                             placeholder: "Escribe aquí lo que quieras contarme"
                         }
+                    ),
+                    el(
+                        "div",
+                        {
+                            class: "atareao-contactblock-div-alert row",
+                            style: "visibility:hidden",
+                            id: "atareao-contactblock-div-resultado"
+                        },
+                        el(
+                            "span",
+                            {
+                                class: "atareao-contactblock-closebtn",
+                            },
+                            "&times;"
+                        ),
+                        el(
+                            "p",
+                            {
+                                class: "atareao-contactblock-alert-message",
+                                id: "atareao-contactblock-content-resultado",
+                            }
+                        )
                     ),
                     el(
                         "div",
@@ -76,7 +146,7 @@
                                 id: "atareao-contactblock-label-for-select-animal",
                                 for: "select-animal",
                             },
-                            human_q()
+                            atareao_contactblock_human_q()
                         ),
                     ),
                     el(
@@ -84,7 +154,7 @@
                         {
                             class: "atareao-contactblock-div row",
                         },
-                        human()
+                        atareao_contactblock_human()
                     ),
                     el(
                         "div",
@@ -100,28 +170,13 @@
                             "Enviar"
                         )
                     ),
-                    el(
-                        "div",
-                        {
-                            class: "atareao-contactblock-div row"
-                        },
-                        el(
-                            "span",
-                            {
-                                class: "atareao-contactblock-span",
-                                id: "atareao-contactblock-span-resultado",
-                                style: "visibility:hidden"
-                            },
-                            "Resultado"
-                        )
-                    )
                 )
             );
         },
     } );
 }( window.wp.blocks, window.wp.i18n, window.wp.element, window.wp.blockEditor ) );
 
-function human_q(){
+function atareao_contactblock_human_q(){
     return [wp.element.createElement("label", {}, "¿Eres un ser humano?. Selecciona "),
             wp.element.createElement(
                 "span",
@@ -132,14 +187,14 @@ function human_q(){
                 "")];
 }
 
-function human(){
+function atareao_contactblock_human(){
     let q = [];
     let animals = {option1: "\u{1F980}",
                    option2: "\u{1F40D}",
                    option3: "\u{1F427}",
-                   option4: "\u{1F404}",
-                   option5: "\u{1F416}",
-                   option6: "\u{1F40E}"
+                   option4: "\u{1F40B}",
+                   option5: "\u{1F9AD}",
+                   option6: "\u{1F98A}"
     };
     for(const [key, value] of Object.entries(animals)){
         q.push(wp.element.createElement(

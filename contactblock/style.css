@@ -4,17 +4,24 @@
     align-items: flex-start;
     flex-direction: row;
     max-height: 100vh;
+    align-items: center;
+    justify-content: center;
 }
 
-#atareao-contactblock-label-correo{
-    line-height: 80px!important;
-}
-#atareao-contactblock-input-contact{
-    flex: 1;
-}
 #atareao-contactblock-textarea-content{
     flex: 1;
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    text-indent: 0;
 }
+
 #atareao-contactblock-select-animal{
     height: 100px;
     border: none;
@@ -28,10 +35,13 @@
   outline: none;
 }
 #random-animal{
-    font-size: 50px;
+    font-size: 32px;
+    margin-left: 15px;
 }
 .atareao-contactblock-label{
-    font-weight: 300;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 15px;
 }
 input, textarea{
     font-family: sans-serif;
@@ -53,10 +63,10 @@ input, textarea{
     visibility: hidden;
 }
 .atareao-contactblock-label-for-selection{
-    font-size: 50px;
+    font-size: 32px;
     cursor: pointer;
     background-color: #7ddbd3;
-    padding: 25px;
+    padding: 20px;
     border-radius: 10px;
 }
 input[type="radio"].atareao-contactblock-input-for-selection{
@@ -69,4 +79,26 @@ input[type="radio"].atareao-contactblock-input-for-selection:checked + label{
 }
 .atareao-contactblock-div{
     margin-top: 20px;
+}
+
+.atareao-contactblock-div-alert{
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+}
+
+.atareao-contactblock-closebtn{
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.atareao-contactblock-closebtn:hover {
+  color: black;
 }
