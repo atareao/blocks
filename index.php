@@ -73,7 +73,7 @@ function send_mattermost_message(WP_REST_Request $request){
         if(isset($options)){
             $token = $options['admin_settings_mattermost_token'];
             $channel_id  = $options['admin_settings_mattermost_channel_id'];
-            $message = "form: que\nfrom: $data->email\nmessage: $data->message";
+            $message = "Contacto: $data->message";
             $data =[
                 "channel_id" => $channel_id,
                 "message"    => $message
@@ -87,7 +87,7 @@ function send_mattermost_message(WP_REST_Request $request){
 }
 
 function atareao_contactblock_enqueue_scripts(){
-    $block_path = "blocks/contactblock/formblock.js";
+    $block_path = "blocks/contactblock/contactblock.js";
     error_log(plugin_dir_path(__DIR__).$block_path);
     error_log("Cargado");
     wp_enqueue_script(
@@ -101,7 +101,7 @@ function atareao_contactblock_enqueue_scripts(){
     );
     wp_localize_script("atareao-formblock", "php_vars", $formblock_params);
 }
-add_action("enqueue_block_assets", "atareao_formblock_enqueue_scripts");
+add_action("enqueue_block_assets", "atareao_contactblock_enqueue_scripts");
 
 function formblock_endpoint(){
     register_rest_route("atareao-formblock/v1", "enviar", array(
