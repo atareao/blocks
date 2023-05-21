@@ -10,6 +10,9 @@
     "textdomain": "atareao-contactblock",
     "example": {},
     "attributes": {
+        "contact": {
+            "type": "string"
+        },
         "message": {
             "type": "string"
         }

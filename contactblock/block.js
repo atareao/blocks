@@ -74,7 +74,6 @@
                         "textarea",
                         {
                             id: "message",
-                            type: "text",
                             value: props.attributes.message,
                             onChange: update_message
                         }
@@ -91,22 +90,23 @@
                     "div",
                     {class: "miform"},
                     el(
-                        "div",
-                        {class: "row"},
-                        el(
-                            "label",
-                            {class: "atareao-contactblock-label row"},
-                            el(
-                                "p",
-                                {class: "message"},
-                                props.attributes.message
-                            )
-                        ),
+                        "label",
+                        {class: "atareao-contactblock-label"},
+                        props.attributes.message
+                    ),
+                    el(
+                        "input",
+                        {
+                            className: "atareao-contactblock-input row",
+                            id: "atareao-contactblock-input-contact",
+                            name: "contact",
+                            placeholder: "Nombre o correo o contacto (opcional)"
+                        }
                     ),
                     el(
                         "textarea",
                         {
-                            class: "atareao-contactblock-textarea row",
+                            className: "atareao-contactblock-textarea row",
                             id: "atareao-contactblock-textarea-content",
                             name: "message",
                             placeholder: "Escribe aquí lo que quieras contarme"
@@ -115,23 +115,47 @@
                     el(
                         "div",
                         {
-                            class: "atareao-contactblock-div-alert row",
-                            style: "visibility:hidden",
-                            id: "atareao-contactblock-div-resultado"
+                            id: "atareao-contactblock-alert-div",
+                            className: "atareao-contactblock-alert atareao-contactblock-alert-white rounded atareao-contactblock-hidden"
                         },
+                        el(
+                            "button",
+                            {
+                                id: "atareao-contactblock-alert-button",
+                                type: "button",
+                                className: "close",
+                                "data-dismiss": "atareao-contactblock-alert",
+                                "aria-hidden": true
+                            },
+                            "x"
+                        ),
+                        el(
+                            "div",
+                            {
+                                className: "icon"
+                            },
+                            el(
+                                "span",
+                                {
+                                    id: "atareao-contactblock-alert-state-icon",
+                                    className: "atareao-contactblock-alert-state-icon"
+                                },
+                                "❌"
+                            )
+                        ),
                         el(
                             "span",
                             {
-                                class: "atareao-contactblock-closebtn",
+                                id: "atareao-contactblock-alert-state"
                             },
-                            "&times;"
+                            "¡Conseguido!"
                         ),
                         el(
-                            "p",
+                            "span",
                             {
-                                class: "atareao-contactblock-alert-message",
-                                id: "atareao-contactblock-content-resultado",
-                            }
+                                id: "atareao-contactblock-alert-message"
+                            },
+                            "Mensaje envíado"
                         )
                     ),
                     el(

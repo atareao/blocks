@@ -1,4 +1,79 @@
 
+const Status = {
+    Success: 0,
+    Info: 1,
+    Warning: 2,
+    Error: 3,
+};
+
+class AtareaoContactBlockAlertMessage{
+    constructor(){
+        this._divEl = document.getElementById("atareao-contactblock-alert-div");
+        this._buttonEl = document.getElementById("atareao-contactblock-alert-button");
+        this._iconEl = document.getElementById("atareao-contactblock-alert-state-icon");
+        this._stateEl = document.getElementById("atareao-contactblock-alert-state");
+        this._messageEl = document.getElementById("atareao-contactblock-alert-message");
+        this._buttonEl.addEventListener("click", ()=>{
+            this.hide();
+        });
+    }
+    _show(kind, state, message){
+        if(this._divEl.classList.contains("atareao-contactblock-hidden")){
+            this._divEl.classList.remove("atareao-contactblock-hidden");
+        }
+        switch(kind){
+            case Status.Success:
+                this._setStatusBase(state, message);
+                this._divEl.classList.add("atareao-contactblock-alert-success");
+                this._iconEl.textContent = "\u{2713}";
+                break;
+            case Status.Warning:
+                this._setStatusBase(state, message);
+                this._divEl.classList.add("atareao-contactblock-alert-warning");
+                this._iconEl.textContent = "\u{26A0}";
+                break;
+            case Status.Error:
+                this._setStatusBase(state, message);
+                this._divEl.classList.add("atareao-contactblock-alert-danger");
+                this._iconEl.textContent = "\u{274C}";
+                break;
+            default:
+                this._setStatusBase(state, message);
+                this._divEl.classList.add("atareao-contactblock-alert-info");
+                this._iconEl.textContent = "\u{1F4E3}";
+        }
+        setTimeout(()=>{
+            this.hide();
+        }, 10000);
+    }
+    success(state, message){
+        this._show(Status.Success, state, message);
+    }
+    info(state, message){
+        this._show(Status.Info, state, message);
+    }
+    warning(state, message){
+        this._show(Status.Warning, state, message);
+    }
+    error(state, message){
+        this._show(Status.Error, state, message);
+    }
+    hide(){
+        if(!this._divEl.classList.contains("atareao-contactblock-hidden")){
+            this._divEl.classList.add("atareao-contactblock-hidden");
+        }
+    }
+    _setStatusBase(state, message){
+        this._divEl.className = "";
+        this._divEl.classList.add("atareao-contactblock-alert");
+        this._divEl.classList.add("atareao-contactblock-alert-white");
+        this._divEl.classList.add("rounded");
+        this._stateEl.textContent = state;
+        this._messageEl.textContent = message;
+    }
+
+}
+
 const contactblock_ready = (callaback) => {
     if (document.readyState != "loading"){
         callaback();
@@ -8,56 +83,44 @@ const contactblock_ready = (callaback) => {
 }
 
 contactblock_ready(()=>{
-    console.log("Cargado");
+    //console.log("Cargado");
+    const alertMessage = new AtareaoContactBlockAlertMessage();
     const button = document.getElementById("atareao-contactblock-button-enviar");
     if (button == null){
         return;
     }
     atareao_contactblock_randomize_animal();
     button.addEventListener('click', function (event) {
-        // Log the clicked element in the console
-        const message = get_content();
-        const message_box = document.getElementsById("atareao-contactblock-div-resultado");
-        const message_box_content = document.getElementById("atareao-contactblock-content-resultado")
-        const resultado = document.getElementById("atareao-contactblock-span-resultado");
-        if(!validate_text(message)){
-            message_box_content.textContent = "El mensaje no es válido";
-            message_box.style.visibility = "visible";
-            message_box.style.backgroundColor = "red";
+        const data = get_content()
+        if(!validate_text(data.message)){
+            alertMessage.error("Error", "El mensaje no es válido");
             return;
         }
         if(!validate_human()){
-            message_box_content.textContent = "No pareces ser humano. Selecciona el animal correcto";
-            message_box.style.visibility = "visible";
-            message_box.style.color = "red";
+            alertMessage.error("Error", "No pareces ser humano. Seleciona el animal correcto");
             clear_content();
             return;
         }
-        message_box_content.textContent = "";
-        message_box.style.visibility = "hidden";
-        message_box.style.color = "black";
-        console.log(event.target);
-        console.log("Enviar");
+        alertMessage.hide();
+        //console.log("Enviar");
         const headers = new Headers({
             "Content-Type": "application/json"
         });
-        fetch(php_vars.url,{
+        //console.log(atareao_contactblock_vars.url);
+        fetch(atareao_contactblock_vars.url,{
             method: "post",
             headers: headers,
             credentials: "same-origin",
-            body: JSON.stringify({message: message})
+            body: JSON.stringify(data)
         })
             .then(response => {
-                console.log(response.ok);
+                //console.log(response.ok);
                 const result = response.json();
                 if(response.ok){
-                    message_box_content.textContent = "Tu mensaje ha sido enviado!";
-                    message_box.style.visibility = "visible";
-                    message_box.style.color = "green";
+                    alertMessage.success("¡Conseguido!", "Mensaje envíado");
+                    clear_content();
                 }else{
-                    message_box_content.textContent = "No he podido enviar el mensaje";
-                    message_box.style.visibility = "visible";
-                    message_box.style.color = "red";
+                    alertMessage.error("Error!", "No he podido enviar el mensaje");
                 }
                 atareao_contactblock_randomize_animal();
             })
@@ -86,11 +149,15 @@ function validate_text(text){
 }
 
 function clear_content(){
+    document.getElementById("atareao-contactblock-input-contact").value = "";
     document.getElementById("atareao-contactblock-textarea-content").value = "";
 }
 
 function get_content(){
-    return DOMPurify.sanitize(document.getElementById("atareao-contactblock-textarea-content").value);
+    return {
+        contact: DOMPurify.sanitize(document.getElementById("atareao-contactblock-input-contact").value),
+        message: DOMPurify.sanitize(document.getElementById("atareao-contactblock-textarea-content").value)
+    }
 }
 
 function get_selected_option(){
