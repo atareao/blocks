@@ -63,7 +63,7 @@ function contactblock_endpoint(){
         "permission_callback" => "__return_true"
     ));
 }
-add_action("rest_api_init", "formblock_endpoint");
+add_action("rest_api_init", "contactblock_endpoint");
 
 function send_mattermost_message(WP_REST_Request $request){
     $body = $request->get_body();
@@ -73,10 +73,10 @@ function send_mattermost_message(WP_REST_Request $request){
         if(isset($options)){
             $token = $options['admin_settings_mattermost_token'];
             $channel_id  = $options['admin_settings_mattermost_channel_id'];
-            $message = "Contacto: $data->message";
+            $text = "Message desde atareao.es:\nDe: $data->contact\nMensaje:\n$data->message";
             $data =[
                 "channel_id" => $channel_id,
-                "message"    => $message
+                "message"    => $text
             ];
             $url = "https://mm.territoriolinux.es/api/v4/posts";
 
@@ -96,10 +96,10 @@ function atareao_contactblock_enqueue_scripts(){
         ["wp-blocks"],
         filemtime(plugin_dir_path(__DIR__).$block_path)
     );
-    $formblock_params = array(
-        "url"       => "/wp-json/atareao-contact/v1/send",
+    $contactblock_params = array(
+        "url"       => "/wp-json/atareao-contactblock/v1/send",
     );
-    wp_localize_script("atareao-formblock", "php_vars", $formblock_params);
+    wp_localize_script("atareao-contactblock", "atareao_contactblock_vars", $contactblock_params);
 }
 add_action("enqueue_block_assets", "atareao_contactblock_enqueue_scripts");
 
