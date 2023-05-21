@@ -235,9 +235,9 @@ function human(){
     let animals = {option1: "\u{1F980}",
                    option2: "\u{1F40D}",
                    option3: "\u{1F427}",
-                   option4: "\u{1F404}",
-                   option5: "\u{1F416}",
-                   option6: "\u{1F40E}"
+                   option4: "\u{1F40B}",
+                   option5: "\u{1F9AD}",
+                   option6: "\u{1F98A}"
     };
     for(const [key, value] of Object.entries(animals)){
         q.push(wp.element.createElement(

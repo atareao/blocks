@@ -8,9 +8,13 @@ const formblock_ready = (callaback) => {
     }
 }
 formblock_ready(()=>{
+    const button = document.getElementById("atareao-formblock-button-enviar");
+    if(button == null){
+        return;
+    }
     console.log("Cargado");
     randomize_animal();
-    document.getElementById("atareao-formblock-button-enviar").addEventListener('click', function (event) {
+    button.addEventListener('click', function (event) {
         // Log the clicked element in the console
         const data = get_data();
         const resultado = document.getElementById("atareao-formblock-span-resultado");
@@ -88,9 +92,9 @@ function randomize_animal(){
     const animals = {option1: "\u{1F980}",
                      option2: "\u{1F40D}",
                      option3: "\u{1F427}",
-                     option4: "\u{1F404}",
-                     option5: "\u{1F416}",
-                     option6: "\u{1F40E}"
+                     option4: "\u{1F40B}",
+                     option5: "\u{1F9AD}",
+                     option6: "\u{1F98A}"
     };
     var keys = Object.keys(animals);
     const i = Math.floor(Math.random() * keys.length);

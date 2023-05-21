@@ -28,7 +28,8 @@
   outline: none;
 }
 #random-animal{
-    font-size: 50px;
+    font-size: 32px;
+    margin-left: 15px;
 }
 .atareao-formblock-label{
     font-weight: 300;
@@ -53,10 +54,10 @@ input, textarea{
     visibility: hidden;
 }
 .atareao-formblock-label-for-selection{
-    font-size: 50px;
+    font-size: 32px;
     cursor: pointer;
     background-color: #cf92e1;
-    padding: 25px;
+    padding: 20px;
     border-radius: 10px;
 }
 input[type="radio"].atareao-formblock-input-for-selection{
