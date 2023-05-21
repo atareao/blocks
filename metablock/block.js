@@ -1,6 +1,6 @@
 //import { useSelect } from '@wordpress/data';
 
-( function( blocks, i18n, element, blockEditor ) {
+( function( blocks, i18n, _element, blockEditor ) {
     var __ = i18n.__;
     var useBlockProps = blockEditor.useBlockProps;
     var handleClick = function handleClick(event) {
@@ -173,7 +173,7 @@
                                 id: "atareao-metablock-label-for-select-animal",
                                 for: "select-animal",
                             },
-                            human_q()
+                            atareao_metablock_human_q()
                         ),
                     ),
                     el(
@@ -181,7 +181,7 @@
                         {
                             class: "atareao-metablock-div row",
                         },
-                        human()
+                        atareao_metablock_human()
                     ),
                     el(
                         "div",
@@ -218,7 +218,7 @@
     } );
 }( window.wp.blocks, window.wp.i18n, window.wp.element, window.wp.blockEditor ) );
 
-function human_q(){
+function atareao_metablock_human_q(){
     return [wp.element.createElement("label", {}, "¿Eres un ser humano?. Selecciona "),
             wp.element.createElement(
                 "span",
@@ -229,14 +229,14 @@ function human_q(){
                 "")];
 }
 
-function human(){
+function atareao_metablock_human(){
     let q = [];
     let animals = {option1: "\u{1F980}",
                    option2: "\u{1F40D}",
                    option3: "\u{1F427}",
-                   option4: "\u{1F404}",
-                   option5: "\u{1F416}",
-                   option6: "\u{1F40E}"
+                   option4: "\u{1F40B}",
+                   option5: "\u{1F9AD}",
+                   option6: "\u{1F98A}"
     };
     for(const [key, value] of Object.entries(animals)){
         q.push(wp.element.createElement(
