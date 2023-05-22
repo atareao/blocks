@@ -73,7 +73,7 @@ function send_mattermost_message(WP_REST_Request $request){
         if(isset($options)){
             $token = $options['admin_settings_mattermost_token'];
             $channel_id  = $options['admin_settings_mattermost_channel_id'];
-            $text = "Message desde atareao.es:\nDe: $data->contact\nMensaje:\n$data->message";
+            $text = "Message para @atareao desde atareao.es:\nDe: $data->contact\nMensaje:\n$data->message";
             $data =[
                 "channel_id" => $channel_id,
                 "message"    => $text
