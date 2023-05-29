@@ -88,8 +88,6 @@ function send_mattermost_message(WP_REST_Request $request){
 
 function atareao_contactblock_enqueue_scripts(){
     $block_path = "blocks/contactblock/contactblock.js";
-    error_log(plugin_dir_path(__DIR__).$block_path);
-    error_log("Cargado");
     wp_enqueue_script(
         "atareao-contactblock",
         plugin_dir_url(__DIR__).$block_path,
@@ -135,8 +133,6 @@ function send_message(WP_REST_Request $request){
 
 function atareao_formblock_enqueue_scripts(){
     $block_path = "blocks/formblock/formblock.js";
-    error_log(plugin_dir_path(__DIR__).$block_path);
-    error_log("Cargado");
     wp_enqueue_script(
         "atareao-formblock",
         plugin_dir_url(__DIR__).$block_path,
