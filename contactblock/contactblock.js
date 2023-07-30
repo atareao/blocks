@@ -84,11 +84,11 @@ const contactblock_ready = (callaback) => {
 
 contactblock_ready(()=>{
     //console.log("Cargado");
-    const alertMessage = new AtareaoContactBlockAlertMessage();
     const button = document.getElementById("atareao-contactblock-button-enviar");
     if (button == null){
         return;
     }
+    const alertMessage = new AtareaoContactBlockAlertMessage();
     atareao_contactblock_randomize_animal();
     button.addEventListener('click', function (event) {
         const data = get_content()
