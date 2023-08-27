@@ -59,7 +59,7 @@ function contactblock_endpoint(){
     register_rest_route("atareao-contactblock/v1", "send", array(
         //"methods" => WP_REST_Server::READABLE,
         "methods" => "Post",
-        "callback" => "send_mattermost_message",
+        "callback" => "send_matrix_message",
         "permission_callback" => "__return_true"
     ));
 }
@@ -79,6 +79,30 @@ function send_mattermost_message(WP_REST_Request $request){
                 "message"    => $text
             ];
             $url = "https://mm.territoriolinux.es/api/v4/posts";
+
+            return custom_http_post_with_bearer($url, $data, $token);
+        }
+        return new WP_Error("No configuration", "No configuration", array( 'status' => 404 ) );
+    }
+}
+
+function send_matrix_message(WP_REST_Request $request){
+    $body = $request->get_body();
+    if(!empty($body)){
+        $data = json_decode($body);
+        $options = get_option('admin_settings_options');
+        if(isset($options)){
+            $ts = time();
+            $base_url = $options['admin_settings_matrix_base_url'];
+            $token = $options['admin_settings_matrix_token'];
+            $room_id  = $options['admin_settings_matrix_room_id'];
+            $room = urlencode($room_id);
+            $text = "Message para @atareao desde atareao.es:\nDe: $data->contact\nMensaje:\n$data->message";
+            $data = [
+                "msgtype" => "m.text",
+                "body"    => $text
+            ];
+            $url = "https://{$base_url}/_matrix/client/v3/rooms/{$room}:{$base_url}/send/m.room.message/{$ts}";
 
             return custom_http_post_with_bearer($url, $data, $token);
         }
@@ -149,12 +173,14 @@ add_action("enqueue_block_assets", "atareao_formblock_enqueue_scripts");
 function atareao_audioblock_enqueue_scripts(){
     $block_path = "blocks/audioblock/wavesurfer.js";
     $main_path = "blocks/audioblock/simple.js";
+    /*
     wp_enqueue_script(
         "atareao-audioblock",
         plugin_dir_url(__DIR__).$block_path,
         ["wp-blocks"],
         filemtime(plugin_dir_path(__DIR__).$block_path)
     );
+    */
     wp_enqueue_script(
         "atareao-audioblock-main",
         plugin_dir_url(__DIR__).$main_path,
@@ -184,7 +210,7 @@ function custom_http_post_with_bearer($url, $json, $token)
             'Content-Length: ' . strlen($data_string))
         );
         $ans = json_decode(curl_exec($ch));
-        if($ans->ok !== TRUE)
+        if(property_exists($ans, "ok") && $ans->ok !== TRUE)
         {
             $ans = null;
         }
