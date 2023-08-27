@@ -98,7 +98,7 @@ contactblock_ready(()=>{
         }
         if(!validate_human()){
             alertMessage.error("Error", "No pareces ser humano. Seleciona el animal correcto");
-            clear_content();
+            atareao_contactblock_clear_content();
             return;
         }
         alertMessage.hide();
@@ -118,7 +118,7 @@ contactblock_ready(()=>{
                 const result = response.json();
                 if(response.ok){
                     alertMessage.success("¡Conseguido!", "Mensaje envíado");
-                    clear_content();
+                    atareao_contactblock_clear_content();
                 }else{
                     alertMessage.error("Error!", "No he podido enviar el mensaje");
                 }
@@ -148,7 +148,7 @@ function validate_text(text){
     return text && text !== "";
 }
 
-function clear_content(){
+function atareao_contactblock_clear_content(){
     document.getElementById("atareao-contactblock-input-contact").value = "";
     document.getElementById("atareao-contactblock-textarea-content").value = "";
 }

@@ -104,7 +104,13 @@ function send_matrix_message(WP_REST_Request $request){
             ];
             $url = "https://{$base_url}/_matrix/client/v3/rooms/{$room}:{$base_url}/send/m.room.message/{$ts}";
 
-            return custom_http_post_with_bearer($url, $data, $token);
+            $response = custom_http_put_with_bearer($url, $data, $token);
+            if (array_key_exists("event_id", $response)){
+                return $response;
+            }
+            $error_content = json_encode($response);
+            error_log("Error: {$error_content}");
+            return new WP_Error("Service not available", "Service not available", array( 'status' => 503 ) );
         }
         return new WP_Error("No configuration", "No configuration", array( 'status' => 404 ) );
     }
@@ -201,6 +207,38 @@ function custom_http_post_with_bearer($url, $json, $token)
         // Disable SSL verification
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        // Will return the response, if false it print the response
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            "Authorization: Bearer $token",
+            'Content-Length: ' . strlen($data_string))
+        );
+        $ans = json_decode(curl_exec($ch));
+        if(property_exists($ans, "ok") && $ans->ok !== TRUE)
+        {
+            $ans = null;
+        }
+    }
+    catch(Exception $e)
+    {
+        echo "Error: ", $e->getMessage(), "\n";
+    }
+    curl_close($ch);
+    return $ans;
+}
+function custom_http_put_with_bearer($url, $json, $token)
+{
+    $ans = null;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    try
+    {
+        $data_string = json_encode($json);
+        // Disable SSL verification
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
         // Will return the response, if false it print the response
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
