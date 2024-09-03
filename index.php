@@ -105,11 +105,15 @@ function send_matrix_message(WP_REST_Request $request){
             $url = "https://{$base_url}/_matrix/client/v3/rooms/{$room}:{$base_url}/send/m.room.message/{$ts}";
 
             $response = custom_http_put_with_bearer($url, $data, $token);
-            if (array_key_exists("event_id", $response)){
-                return $response;
+            if (isset($response)){
+               if(property_exists($response, "event_id")){
+                    return $response;
+                }else{
+                    $error_content = json_encode($response);
+                    error_log("Error: {$error_content}");
+                }
             }
-            $error_content = json_encode($response);
-            error_log("Error: {$error_content}");
+            error_log("Error: No response");
             return new WP_Error("Service not available", "Service not available", array( 'status' => 503 ) );
         }
         return new WP_Error("No configuration", "No configuration", array( 'status' => 404 ) );
@@ -247,18 +251,22 @@ function custom_http_put_with_bearer($url, $json, $token)
             "Authorization: Bearer $token",
             'Content-Length: ' . strlen($data_string))
         );
-        $ans = json_decode(curl_exec($ch));
-        if(property_exists($ans, "ok") && $ans->ok !== TRUE)
+        $result = curl_exec($ch);
+        curl_close($ch);
+        if(isset($result))
         {
-            $ans = null;
+            $ans = json_decode($result, false);
+            if(isset($ans) && property_exists($ans, "ok") && $ans->ok === TRUE)
+            {
+                return $ans;
+            }
         }
     }
     catch(Exception $e)
     {
         echo "Error: ", $e->getMessage(), "\n";
     }
-    curl_close($ch);
-    return $ans;
+    return null;
 }
 function custom_http_post($url, $json)
 {
